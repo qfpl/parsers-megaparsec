@@ -52,39 +52,67 @@ newtype ParsecT e s m a
 
 -- | Note: 'unexpected' requires a non-empty string
 instance (Ord e, Stream s) => Parsing (ParsecT e s m) where
+  {-# inline try#-}
   try = Parsec.try
+
+  {-# inline (<?>) #-}
   (<?>) = (Parsec.<?>)
+
+  {-# inline notFollowedBy #-}
   notFollowedBy = Parsec.notFollowedBy
+
+  {-# inline eof #-}
   eof = Parsec.eof
+
+  {-# inline unexpected #-}
   unexpected = Parsec.unexpected . Parsec.Label . NonEmpty.fromList
 
 instance Ord e => CharParsing (ParsecT e String m) where
+  {-# inline satisfy #-}
   satisfy = Parsec.satisfy
+  {-# inline char #-}
   char = Parsec.char
+  {-# inline notChar #-}
   notChar = Parsec.notChar
+  {-# inline anyChar #-}
   anyChar = Parsec.anyChar
+  {-# inline string #-}
   string = Parsec.string
+  {-# inline text #-}
   text = fmap Text.pack . string . Text.unpack
 
 -- | Lazy 'Lazy.Text'
 instance Ord e => CharParsing (ParsecT e Lazy.Text m) where
+  {-# inline satisfy #-}
   satisfy = Parsec.satisfy
+  {-# inline char #-}
   char = Parsec.char
+  {-# inline notChar #-}
   notChar = Parsec.notChar
+  {-# inline anyChar #-}
   anyChar = Parsec.anyChar
+  {-# inline string #-}
   string = fmap Lazy.unpack . Parsec.string . Lazy.pack
+  {-# inline text #-}
   text = fmap Lazy.toStrict . Parsec.string . Lazy.fromStrict
 
 -- | Strict 'Text.Text'
 instance Ord e => CharParsing (ParsecT e Text.Text m) where
+  {-# inline satisfy #-}
   satisfy = Parsec.satisfy
+  {-# inline char #-}
   char = Parsec.char
+  {-# inline notChar #-}
   notChar = Parsec.notChar
+  {-# inline anyChar #-}
   anyChar = Parsec.anyChar
+  {-# inline string #-}
   string = fmap Text.unpack . Parsec.string . Text.pack
+  {-# inline text #-}
   text = Parsec.string
 
 instance (Ord e, Stream s) => LookAheadParsing (ParsecT e s m) where
+  {-# inline lookAhead #-}
   lookAhead = Parsec.lookAhead
 
 instance Ord e => TokenParsing (ParsecT e String m)
