@@ -31,21 +31,16 @@ import Data.Monoid (Monoid)
 import Data.Semigroup (Semigroup)
 import Data.String (fromString)
 import Text.Megaparsec (MonadParsec, Stream, Token)
-import Text.Parser.Combinators (Parsing(..))
-import Text.Parser.Char (CharParsing(..))
-import Text.Parser.LookAhead (LookAheadParsing(..))
-import Text.Parser.Token (TokenParsing(..))
+import Text.Parser.Combinators
+import Text.Parser.Char
+import Text.Parser.LookAhead
+import Text.Parser.Token
 
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as Lazy
 import qualified Text.Megaparsec as Parsec
 import qualified Text.Megaparsec.Char as Parsec
-
-import qualified Text.Parser.Combinators
-import qualified Text.Parser.Char
-import qualified Text.Parser.LookAhead
-import qualified Text.Parser.Token
 
 newtype ParsecT e s m a
   = ParsecT { unParsecT :: Parsec.ParsecT e s m a }
