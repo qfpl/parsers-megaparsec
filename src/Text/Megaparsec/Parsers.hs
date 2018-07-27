@@ -9,7 +9,14 @@
 
 {-# language GeneralizedNewtypeDeriving #-}
 {-# language FlexibleInstances #-}
-module Text.Megaparsec.Parsers where
+module Text.Megaparsec.Parsers
+  ( module Text.Parser.Combinators
+  , module Text.Parser.Char
+  , module Text.Parser.LookAhead
+  , module Text.Parser.Token
+  , ParsecT(..)
+  )
+where
 
 import Control.Applicative (Alternative)
 import Control.Monad (MonadPlus)
@@ -34,6 +41,11 @@ import qualified Data.Text as Text
 import qualified Data.Text.Lazy as Lazy
 import qualified Text.Megaparsec as Parsec
 import qualified Text.Megaparsec.Char as Parsec
+
+import qualified Text.Parser.Combinators
+import qualified Text.Parser.Char
+import qualified Text.Parser.LookAhead
+import qualified Text.Parser.Token
 
 newtype ParsecT e s m a
   = ParsecT { unParsecT :: Parsec.ParsecT e s m a }
