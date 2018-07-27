@@ -79,7 +79,7 @@ instance Ord e => CharParsing (ParsecT e String m) where
   {-# inline string #-}
   string = Parsec.string
   {-# inline text #-}
-  text = fmap Text.pack . string . Text.unpack
+  text t = t <$ string (Text.unpack t)
 
 -- | Lazy 'Lazy.Text'
 instance Ord e => CharParsing (ParsecT e Lazy.Text m) where
@@ -92,9 +92,9 @@ instance Ord e => CharParsing (ParsecT e Lazy.Text m) where
   {-# inline anyChar #-}
   anyChar = Parsec.anyChar
   {-# inline string #-}
-  string = fmap Lazy.unpack . Parsec.string . Lazy.pack
+  string t = t <$ Parsec.string (Lazy.pack t)
   {-# inline text #-}
-  text = fmap Lazy.toStrict . Parsec.string . Lazy.fromStrict
+  text t = t <$ Parsec.string (Lazy.fromStrict t)
 
 -- | Strict 'Text.Text'
 instance Ord e => CharParsing (ParsecT e Text.Text m) where
@@ -107,7 +107,7 @@ instance Ord e => CharParsing (ParsecT e Text.Text m) where
   {-# inline anyChar #-}
   anyChar = Parsec.anyChar
   {-# inline string #-}
-  string = fmap Text.unpack . Parsec.string . Text.pack
+  string t = t <$ Parsec.string (Text.pack t)
   {-# inline text #-}
   text = Parsec.string
 
