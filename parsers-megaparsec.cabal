@@ -3,15 +3,13 @@
 
 name:                parsers-megaparsec
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:            `parsers` instances for Megaparsec
 license:             BSD3
 --                   Must be spelled with a 'C' for nix
 license-file:        LICENCE
-author:              Isaac Elliott
-maintainer:          isaace71295@gmail.com
--- copyright:
--- category:
+author:              Queensland Functional Programming Lab <oᴉ˙ldɟb@llǝʞsɐɥ>
+
+maintainer:          Queensland Functional Programming Lab <oᴉ˙ldɟb@llǝʞsɐɥ>
 build-type:          Simple
 extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
