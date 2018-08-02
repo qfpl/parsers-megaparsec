@@ -18,7 +18,7 @@ module Text.Megaparsec.Parsers
   )
 where
 
-import Control.Applicative (Alternative)
+import Control.Applicative (Applicative, Alternative)
 import Control.Monad (MonadPlus)
 import Control.Monad.Cont.Class (MonadCont)
 import Control.Monad.Error.Class (MonadError)
@@ -28,6 +28,7 @@ import Control.Monad.Reader.Class (MonadReader)
 import Control.Monad.State.Class (MonadState)
 import Control.Monad.Trans (MonadTrans)
 import Data.Monoid (Monoid)
+import Data.Functor ((<$))
 import Data.Semigroup (Semigroup)
 import Data.String (fromString)
 import Text.Megaparsec (MonadParsec, Stream, Token)
