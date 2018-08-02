@@ -6,6 +6,7 @@ version:             0.1.0.0
 synopsis:            `parsers` instances for Megaparsec
 description:         A newtype around ParsecT with instances for Parsing,
                      CharParsing, LookAheadParsing, and TokenParsing
+extra-source-files:  ChangeLog.md
 category:            Text, Parsing
 license:             BSD3
 --                   Must be spelled with a 'C' for nix
