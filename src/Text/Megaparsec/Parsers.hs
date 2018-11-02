@@ -7,6 +7,7 @@
 -- 'CharParsing' and 'TokenParsing' only have instances for 'String', strict 'Text.Text',
 -- and lazy 'Lazy.Text', because those type classes expect the 'Token' type to be 'Char'
 
+{-# language CPP #-}
 {-# language GeneralizedNewtypeDeriving #-}
 {-# language FlexibleInstances #-}
 module Text.Megaparsec.Parsers
@@ -73,14 +74,19 @@ instance Ord e => CharParsing (ParsecT e String m) where
   satisfy = Parsec.satisfy
   {-# inline char #-}
   char = Parsec.char
-  {-# inline notChar #-}
-  notChar = Parsec.notChar
-  {-# inline anyChar #-}
-  anyChar = Parsec.anyChar
   {-# inline string #-}
   string = Parsec.string
   {-# inline text #-}
   text t = t <$ string (Text.unpack t)
+  {-# inline notChar #-}
+  {-# inline anyChar #-}
+#if !MIN_VERSION_megaparsec(7,0,0)
+  notChar = Parsec.notChar
+  anyChar = Parsec.anyChar
+#else
+  notChar = Parsec.anySingleBut
+  anyChar = Parsec.anySingle
+#endif
 
 -- | Lazy 'Lazy.Text'
 instance Ord e => CharParsing (ParsecT e Lazy.Text m) where
@@ -88,14 +94,19 @@ instance Ord e => CharParsing (ParsecT e Lazy.Text m) where
   satisfy = Parsec.satisfy
   {-# inline char #-}
   char = Parsec.char
-  {-# inline notChar #-}
-  notChar = Parsec.notChar
-  {-# inline anyChar #-}
-  anyChar = Parsec.anyChar
   {-# inline string #-}
   string t = t <$ Parsec.string (Lazy.pack t)
   {-# inline text #-}
   text t = t <$ Parsec.string (Lazy.fromStrict t)
+  {-# inline notChar #-}
+  {-# inline anyChar #-}
+#if !MIN_VERSION_megaparsec(7,0,0)
+  notChar = Parsec.notChar
+  anyChar = Parsec.anyChar
+#else
+  notChar = Parsec.anySingleBut
+  anyChar = Parsec.anySingle
+#endif
 
 -- | Strict 'Text.Text'
 instance Ord e => CharParsing (ParsecT e Text.Text m) where
@@ -103,14 +114,19 @@ instance Ord e => CharParsing (ParsecT e Text.Text m) where
   satisfy = Parsec.satisfy
   {-# inline char #-}
   char = Parsec.char
-  {-# inline notChar #-}
-  notChar = Parsec.notChar
-  {-# inline anyChar #-}
-  anyChar = Parsec.anyChar
   {-# inline string #-}
   string t = t <$ Parsec.string (Text.pack t)
   {-# inline text #-}
   text = Parsec.string
+  {-# inline notChar #-}
+  {-# inline anyChar #-}
+#if !MIN_VERSION_megaparsec(7,0,0)
+  notChar = Parsec.notChar
+  anyChar = Parsec.anyChar
+#else
+  notChar = Parsec.anySingleBut
+  anyChar = Parsec.anySingle
+#endif
 
 instance (Ord e, Stream s) => LookAheadParsing (ParsecT e s m) where
   {-# inline lookAhead #-}
