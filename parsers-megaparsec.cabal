@@ -2,7 +2,7 @@
 -- see http://haskell.org/cabal/users-guide/
 
 name:                parsers-megaparsec
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            `parsers` instances for Megaparsec
 description:         A newtype around ParsecT with instances for Parsing,
                      CharParsing, LookAheadParsing, and TokenParsing

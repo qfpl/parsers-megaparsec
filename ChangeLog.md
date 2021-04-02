@@ -1,3 +1,6 @@
+0.1.0.2
+* Support megaparsec 9
+
 0.1.0.1
 * Support megaparsec 7
 
